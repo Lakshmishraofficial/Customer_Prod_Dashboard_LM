@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
+import { Suspense } from "react";
 import { Button } from "../ui/button";
 
 interface Props {
@@ -19,6 +19,9 @@ function UserCard({ id, name, username, imgUrl, personType }: Props) {
   const isCommunity = personType === "Community";
 
   return (
+    <Suspense
+    fallback={<h1 className="text-light-1 text-heading3-bold">Preparing Your Experience...</h1>}
+  >
     <article className='user-card'>
       <div className='user-card_avatar'>
         <div className='relative h-12 w-12'>
@@ -49,6 +52,7 @@ function UserCard({ id, name, username, imgUrl, personType }: Props) {
         View
       </Button>
     </article>
+    </Suspense>
   );
 }
 

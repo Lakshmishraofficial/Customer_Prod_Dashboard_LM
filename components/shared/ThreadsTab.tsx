@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-
+import { Suspense } from "react";
 import { fetchCommunityPosts } from "@/lib/actions/community.actions";
 import { fetchUserPosts } from "@/lib/actions/user.actions";
 
@@ -52,6 +52,9 @@ async function ThreadsTab({ currentUserId, accountId, accountType }: Props) {
   }
 
   return (
+    <Suspense
+    fallback={<h1 className="text-light-1 text-heading3-bold">Preparing Your Experience...</h1>}
+  >
     <section className='mt-9 flex flex-col gap-10'>
       {result.threads.map((thread) => (
         <ThreadCard
@@ -79,6 +82,7 @@ async function ThreadsTab({ currentUserId, accountId, accountType }: Props) {
         />
       ))}
     </section>
+    </Suspense>
   );
 }
 

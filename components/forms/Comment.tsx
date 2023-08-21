@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { usePathname } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { Suspense } from "react";
 import {
   Form,
   FormControl,
@@ -48,39 +48,47 @@ function Comment({ threadId, currentUserImg, currentUserId }: Props) {
   };
 
   return (
-    <Form {...form}>
-      <form className='comment-form' onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name='thread'
-          render={({ field }) => (
-            <FormItem className='flex w-full items-center gap-3'>
-              <FormLabel>
-                <Image
-                  src={currentUserImg}
-                  alt='current_user'
-                  width={48}
-                  height={48}
-                  className='rounded-full object-cover'
-                />
-              </FormLabel>
-              <FormControl className='border-none bg-transparent'>
-                <Input
-                  type='text'
-                  {...field}
-                  placeholder='Comment...'
-                  className='no-focus text-light-1 outline-none'
-                />
-              </FormControl>
-            </FormItem>
-          )}
-        />
+    <Suspense
+      fallback={
+        <h1 className="text-light-1 text-heading3-bold">
+          Preparing Your Experience...
+        </h1>
+      }
+    >
+      <Form {...form}>
+        <form className="comment-form" onSubmit={form.handleSubmit(onSubmit)}>
+          <FormField
+            control={form.control}
+            name="thread"
+            render={({ field }) => (
+              <FormItem className="flex w-full items-center gap-3">
+                <FormLabel>
+                  <Image
+                    src={currentUserImg}
+                    alt="current_user"
+                    width={48}
+                    height={48}
+                    className="rounded-full object-cover"
+                  />
+                </FormLabel>
+                <FormControl className="border-none bg-transparent">
+                  <Input
+                    type="text"
+                    {...field}
+                    placeholder="Comment..."
+                    className="no-focus text-light-1 outline-none"
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
 
-        <Button type='submit' className='comment-form_btn'>
-          Reply
-        </Button>
-      </form>
-    </Form>
+          <Button type="submit" className="comment-form_btn">
+            Reply
+          </Button>
+        </form>
+      </Form>
+    </Suspense>
   );
 }
 

@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs";
-
+import { Suspense } from "react";
 import UserCard from "@/components/cards/UserCard";
 import Searchbar from "@/components/shared/Searchbar";
 import Pagination from "@/components/shared/Pagination";
@@ -26,6 +26,9 @@ async function Page({
   });
 
   return (
+    <Suspense
+    fallback={<h1 className="text-light-1 text-heading3-bold">Preparing Your Experience...</h1>}
+  >
     <section>
       <h1 className='head-text mb-10'>Search</h1>
 
@@ -56,6 +59,7 @@ async function Page({
         isNext={result.isNext}
       />
     </section>
+    </Suspense>
   );
 }
 
