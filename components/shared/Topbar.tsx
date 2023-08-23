@@ -14,8 +14,8 @@ function Topbar() {
         <p
           className={
             isDarkMode
-              ? "text-heading3-bold text-light-1 max-xs:hidden"
-              : "text-heading3-bold text-dark-1 max-xs:hidden"
+              ? "text-heading3-bold text-light-1 "
+              : "text-heading3-bold text-dark-1 "
           }
         >
           Prime-HR
