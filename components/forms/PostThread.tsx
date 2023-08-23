@@ -1,5 +1,5 @@
 "use client";
-
+import { useTheme } from "../../app/themes/themeContext";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { useOrganization } from "@clerk/nextjs";
@@ -27,7 +27,7 @@ interface Props {
 function PostThread({ userId }: Props) {
   const router = useRouter();
   const pathname = usePathname();
-
+  const { isDarkMode } = useTheme();
   const { organization } = useOrganization();
 
   const form = useForm<z.infer<typeof ThreadValidation>>({
@@ -70,7 +70,7 @@ function PostThread({ userId }: Props) {
                 <FormLabel className="text-base-semibold text-light-2">
                   Content
                 </FormLabel>
-                <FormControl className="no-focus border border-dark-4 bg-dark-3 text-light-1">
+                <FormControl className={isDarkMode?"no-focus border border-dark-4 bg-dark-3 text-light-1":"no-focus border border-light-4 bg-light-1 text-dark-1"}>
                   <Textarea rows={15} {...field} />
                 </FormControl>
                 <FormMessage />
