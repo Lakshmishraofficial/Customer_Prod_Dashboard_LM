@@ -2,13 +2,23 @@
 
 import { FilterQuery, SortOrder } from "mongoose";
 import { revalidatePath } from "next/cache";
-
+import HolidayModel from '../models/holiday.model';
 import Community from "../models/community.model";
 import Thread from "../models/thread.model";
 import User from "../models/user.model";
 
 import { connectToDB } from "../mongoose";
 
+export async function fetchAllHolidays() { 
+  try { 
+    connectToDB(); 
+    const holidays = await HolidayModel.find({}) 
+    return holidays; 
+  } catch (error) { 
+    console.error("Error fetching HolidayModel", error); 
+    throw error; 
+  } 
+}
 export async function fetchUser(userId: string) {
   try {
     connectToDB();

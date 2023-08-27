@@ -26,18 +26,19 @@ export default function RootLayout({
 }) {
 
   return (
-    <ThemeProvider>
+ 
       <ClerkProvider appearance={{
         baseTheme: dark,
       }}>
         <html lang="en">
+        <ThemeProvider>
           <body className={inter.className}>
             <Topbar />
             <ThemeSwitcher />
             <main className="flex flex-row">
               <LeftSidebar />
               <section className="main-container">
-                <div className="w-full max-w-4xl">{children}</div>
+                <div className="w-full sm:max-w-4xl max-w-xs">{children}</div>
               </section>
               {/* @ts-ignore */}
               <RightSidebar />
@@ -45,8 +46,9 @@ export default function RootLayout({
 
             <Bottombar />
           </body>
+          </ThemeProvider>  
         </html>
       </ClerkProvider>
-    </ThemeProvider>
+
   );
 }

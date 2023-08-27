@@ -30,7 +30,7 @@ async function Page({
       fallback={<h1 className="text-light-1 text-heading3-bold">Preparing Your Experience...</h1>}
     >
       <>
-        <h1 className="head-text">Communities</h1>
+        <h1 className="head-text">Organisations</h1>
 
         <div className="mt-5">
           <Searchbar routeType="communities" />

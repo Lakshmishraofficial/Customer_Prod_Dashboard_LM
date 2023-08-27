@@ -17,7 +17,7 @@ async function Page() {
       fallback={<h1 className="text-light-1 text-heading3-bold">Preparing Your Experience...</h1>}
     >
       <>
-        <h1 className="head-text">Create Thread</h1>
+        <h1 className="head-text">Create Announcement</h1>
 
         <PostThread userId={userInfo._id} />
       </>
