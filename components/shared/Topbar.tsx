@@ -8,14 +8,14 @@ import { useTheme } from "../../app/themes/themeContext";
 function Topbar() {
   const { isDarkMode } = useTheme();
   return (
-    <nav className={isDarkMode ? "topbardark" : "topbarlight"}>
+    <nav className={isDarkMode ? "topbardark transition duration-400 ease-in" : "topbarlight transition duration-400 ease-in"}>
       <Link href="/" className="flex items-center gap-4">
         <Image src="/logo.svg" alt="logo" width={28} height={28} />
         <p
           className={
             isDarkMode
-              ? "text-heading3-bold text-light-1 "
-              : "text-heading3-bold text-dark-1 "
+              ? "text-heading3-bold text-light-1 transition duration-400 ease-in"
+              : "text-heading3-bold text-dark-1 transition duration-400 ease-in"
           }
         >
           Prime-HR
@@ -44,7 +44,7 @@ function Topbar() {
             appearance={{
               baseTheme: dark,
               elements: {
-                organizationSwitcherTrigger: "py-2 px-4",
+                organizationSwitcherTrigger: "py-2 px-4 ml-2 sm:ml-0",
               },
             }}
           />{" "}

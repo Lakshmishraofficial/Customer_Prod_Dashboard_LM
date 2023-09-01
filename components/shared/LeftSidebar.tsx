@@ -18,8 +18,8 @@ const LeftSidebar = () => {
     <section
       className={
         isDarkMode
-          ? "custom-scrollbar leftsidebardark"
-          : "custom-scrollbar leftsidebarlight"
+          ? "custom-scrollbar leftsidebardark transition duration-400 ease-in"
+          : "custom-scrollbar leftsidebarlight transition duration-400 ease-in"
       }
     >
       <div className="flex w-full flex-1 flex-col gap-6 px-6">
@@ -37,7 +37,7 @@ const LeftSidebar = () => {
               className={`leftsidebar_link ${isActive && "bg-primary-500 "}`}
             >
               <Image
-                style={isDarkMode ? {} : { filter: "invert(1)" }}
+                style={isDarkMode ? {transition:"0.4s ease-in"} : { filter: "invert(1)" }}
                 src={link.imgURL}
                 alt={link.label}
                 width={24}
@@ -47,8 +47,8 @@ const LeftSidebar = () => {
               <p
                 className={
                   isDarkMode
-                    ? "text-light-1 max-lg:hidden"
-                    : "text-dark-1 max-lg:hidden"
+                    ? "text-light-1 max-lg:hidden transition duration-400 ease-in"
+                    : "text-dark-1 max-lg:hidden transition duration-400 ease-in"
                 }
               >
                 {link.label}

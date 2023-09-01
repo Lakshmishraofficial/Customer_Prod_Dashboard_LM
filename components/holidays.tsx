@@ -57,7 +57,7 @@ const HolidaysPage: React.FC = () => {
   }; 
  
   return ( 
-    <div className="flex flex-col justify-center items-center h-1/2 rounded-xl bg-dark-2 text-light-1"> 
+    <div className="flex flex-col justify-center items-center h-1/2 rounded-xl bg-dark-2/[0.9] text-light-1"> 
       <div className="flex items-center w-full justify-between p-5"> 
         <h1 className="sm:text-heading4-bold font-semibold sm:text-base text-xs">Upcoming Holiday</h1> 
         <button className="text-indigo-400 underline" onClick={handleToggleShowAllHolidays}> 

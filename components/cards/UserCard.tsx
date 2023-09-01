@@ -24,7 +24,7 @@ function UserCard({ id, name, username, imgUrl, personType }: Props) {
     fallback={<h1 className="text-light-1 text-heading3-bold">Preparing Your Experience...</h1>}
   >
     <article className={isDarkMode
-          ? 'user-carddark':'user-cardlight'}>
+          ? 'user-carddark transition duration-400 ease-in':'user-cardlight transition duration-400 ease-in'}>
       <div className='user-card_avatar'>
         <div className='relative h-12 w-12'>
           <Image
@@ -37,7 +37,7 @@ function UserCard({ id, name, username, imgUrl, personType }: Props) {
 
         <div className='flex-1 text-ellipsis'>
           <h4 className={isDarkMode
-          ?'text-base-semibold text-light-1':'text-base-semibold text-dark-1'}>{name}</h4>
+          ?'text-base-semibold text-light-1 transition duration-400 ease-in':'text-base-semibold text-dark-1 transition duration-400 ease-in'}>{name}</h4>
           <p className='text-small-medium text-gray-1'>@{username}</p>
         </div>
       </div>

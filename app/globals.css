@@ -5,7 +5,7 @@
 @layer components {
   /* main */
   .main-container {
-    @apply relative flex min-h-screen flex-1 flex-col items-center bg-[#3c3741] px-6 pb-10 pt-28 max-md:pb-32 sm:px-10;
+    @apply relative flex min-h-screen flex-1 flex-col items-center bg-dark-1 bg-[url('https://i.ibb.co/5BBY1Kv/wp12156578-morning-calm-hd-wallpapers.jpg')] bg-repeat-round px-6 pb-10 pt-28 max-md:pb-32 sm:px-10 ;
   }
   .head-text3 { 
     @apply  text-light-1 text-heading4-medium; 
@@ -195,6 +195,7 @@
 .sliderdark {
   position: absolute;
   cursor: pointer;
+  display: none;
   top: 0;
   left: 0;
   right: 0;
@@ -206,6 +207,7 @@
 
 .sliderlight {
   position: absolute;
+  display: none;
   cursor: pointer;
   top: 0;
   left: 0;
@@ -219,24 +221,24 @@
 .toggle-buttndark{
   position: absolute;
   content: '';
-  height: 16px;
-  width: 16px;
-  left: 2px;
+  height: 20px;
+  width: 20px;
+  left: 3px;
   bottom: 2px;
   background-color: rgb(23, 166, 238);
-  transition: 0.4s;
+  transition: 0.4s ease-in-out;
   border-radius: 50%;
   z-index: 99;
 }
 .toggle-buttnday {
   position: absolute;
   content: '';
-  height: 16px;
-  width: 16px;
-  left: 20px;
+  height: 20px;
+  width: 20px;
+  left: 3px;
   bottom: 2px;
   background-color: rgb(238, 202, 23);
-  transition: 0.4s;
+  transition: 0.4s ease-in-out;
   border-radius: 50%;
   z-index: 99;
 }

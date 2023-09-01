@@ -19,7 +19,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Suspense } from "react";
 import { ThreadValidation } from "@/lib/validations/thread";
 import { createThread } from "@/lib/actions/thread.actions";
-
+import { useState } from "react";
 interface Props {
   userId: string;
 }
@@ -29,6 +29,7 @@ function PostThread({ userId }: Props) {
   const pathname = usePathname();
   const { isDarkMode } = useTheme();
   const { organization } = useOrganization();
+  const [isLoading , setisLoading] = useState(false);
 
   const form = useForm<z.infer<typeof ThreadValidation>>({
     resolver: zodResolver(ThreadValidation),
@@ -39,14 +40,15 @@ function PostThread({ userId }: Props) {
   });
 
   const onSubmit = async (values: z.infer<typeof ThreadValidation>) => {
+    setisLoading(true);
     await createThread({
       text: values.thread,
       author: userId,
       communityId: organization ? organization.id : null,
       path: pathname,
     });
-
     router.push("/");
+    setisLoading(false);
   };
 
   return (
@@ -70,7 +72,7 @@ function PostThread({ userId }: Props) {
                 <FormLabel className="text-base-semibold text-light-2">
                   Content
                 </FormLabel>
-                <FormControl className={isDarkMode?"no-focus border border-dark-4 bg-dark-3 text-light-1":"no-focus border border-light-4 bg-light-1 text-dark-1"}>
+                <FormControl className={isDarkMode?"no-focus border border-dark-4 bg-dark-3 text-light-1 transition duration-400 ease-in":"no-focus border border-light-4 bg-light-1 text-dark-1 transition duration-400 ease-in"}>
                   <Textarea rows={15} {...field} />
                 </FormControl>
                 <FormMessage />
@@ -79,7 +81,7 @@ function PostThread({ userId }: Props) {
           />
 
           <Button type="submit" className="bg-primary-500">
-            Post Announcement
+            {isLoading===false?'Post Announcement':'Posting...'}
           </Button>
         </form>
       </Form>
