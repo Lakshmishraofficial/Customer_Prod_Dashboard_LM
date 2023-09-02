@@ -20,6 +20,7 @@ import { Suspense } from "react";
 import { ThreadValidation } from "@/lib/validations/thread";
 import { createThread } from "@/lib/actions/thread.actions";
 import { useState } from "react";
+
 interface Props {
   userId: string;
 }
@@ -29,7 +30,7 @@ function PostThread({ userId }: Props) {
   const pathname = usePathname();
   const { isDarkMode } = useTheme();
   const { organization } = useOrganization();
-  const [isLoading , setisLoading] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
 
   const form = useForm<z.infer<typeof ThreadValidation>>({
     resolver: zodResolver(ThreadValidation),
@@ -41,13 +42,26 @@ function PostThread({ userId }: Props) {
 
   const onSubmit = async (values: z.infer<typeof ThreadValidation>) => {
     setisLoading(true);
-    await createThread({
-      text: values.thread,
-      author: userId,
-      communityId: organization ? organization.id : null,
-      path: pathname,
-    });
-    router.push("/");
+    try {
+      // Add a validation check before submitting
+      await ThreadValidation.parseAsync(values);
+
+      await createThread({
+        text: values.thread,
+        author: userId,
+        communityId: organization ? organization.id : null,
+        path: pathname,
+      });
+      router.push("/");
+    } catch (error) {
+      console.error("Validation error:", error);
+
+      // Handle validation error by setting an error message in the form
+      form.setError("thread", {
+        type: "manual",
+        message: "Validation error: Please check your input.",
+      });
+    }
     setisLoading(false);
   };
 
@@ -72,16 +86,26 @@ function PostThread({ userId }: Props) {
                 <FormLabel className="text-base-semibold text-light-2">
                   Content
                 </FormLabel>
-                <FormControl className={isDarkMode?"no-focus border border-dark-4 bg-dark-3 text-light-1 transition duration-400 ease-in":"no-focus border border-light-4 bg-light-1 text-dark-1 transition duration-400 ease-in"}>
+                <FormControl
+                  className={
+                    isDarkMode
+                      ? "no-focus border border-dark-4 bg-dark-3 text-light-1 transition duration-400 ease-in"
+                      : "no-focus border border-light-4 bg-light-1 text-dark-1 transition duration-400 ease-in"
+                  }
+                >
                   <Textarea rows={15} {...field} />
                 </FormControl>
-                <FormMessage />
+                {form.formState.errors.thread && (
+                  <p className="text-red-500">
+                    {form.formState.errors.thread.message}
+                  </p>
+                )}
               </FormItem>
             )}
           />
 
           <Button type="submit" className="bg-primary-500">
-            {isLoading===false?'Post Announcement':'Posting...'}
+            {isLoading === false ? "Post Announcement" : "Posting..."}
           </Button>
         </form>
       </Form>

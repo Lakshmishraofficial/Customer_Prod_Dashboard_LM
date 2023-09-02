@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 import { z } from "zod";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
@@ -16,7 +15,7 @@ import {
 
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-
+import { useState } from "react";
 import { CommentValidation } from "@/lib/validations/thread";
 import { addCommentToThread } from "@/lib/actions/thread.actions";
 
@@ -28,7 +27,7 @@ interface Props {
 
 function Comment({ threadId, currentUserImg, currentUserId }: Props) {
   const pathname = usePathname();
-
+  const [isLoading, setisLoading] = useState(false);
   const form = useForm<z.infer<typeof CommentValidation>>({
     resolver: zodResolver(CommentValidation),
     defaultValues: {
@@ -37,14 +36,29 @@ function Comment({ threadId, currentUserImg, currentUserId }: Props) {
   });
 
   const onSubmit = async (values: z.infer<typeof CommentValidation>) => {
-    await addCommentToThread(
-      threadId,
-      values.thread,
-      JSON.parse(currentUserId),
-      pathname
-    );
+    setisLoading(true);
+    try {
+      // Add a validation check before submitting
+      await CommentValidation.parseAsync(values);
 
-    form.reset();
+      await addCommentToThread(
+        threadId,
+        values.thread,
+        JSON.parse(currentUserId),
+        pathname
+      );
+
+      form.reset();
+    } catch (error) {
+      console.error("Validation error:", error);
+
+      // Handle validation error by setting an error message in the form
+      form.setError("thread", {
+        type: "manual",
+        message: "Validation error: Please check your input.",
+      });
+    }
+    setisLoading(false);
   };
 
   return (
@@ -83,8 +97,14 @@ function Comment({ threadId, currentUserImg, currentUserId }: Props) {
             )}
           />
 
+          {form.formState.errors.thread && (
+            <p className="text-red-500">
+              {form.formState.errors.thread.message}
+            </p>
+          )}
+
           <Button type="submit" className="comment-form_btn">
-            Reply
+            {isLoading === false ? "Reply" : "Replying..."}
           </Button>
         </form>
       </Form>
