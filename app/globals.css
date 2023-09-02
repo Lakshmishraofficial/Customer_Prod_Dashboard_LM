@@ -64,10 +64,10 @@
   }
 
   .topbardark {
-    @apply fixed top-0 z-30 flex w-full items-center justify-between bg-[#19192b] px-6 py-3 bg-no-repeat bg-[url('../public/assets/topbarpicture.png')];
+    @apply fixed top-0 z-30 flex w-full items-center justify-between bg-[#19192b] px-6 py-1 bg-no-repeat bg-[url('../public/assets/topbarpicture.png')];
   }
   .topbarlight {
-    @apply fixed top-0 z-30 flex w-full items-center justify-between bg-light-2 text-dark-2 px-6 py-3;
+    @apply fixed top-0 z-30 flex w-full items-center justify-between bg-light-2 text-dark-2 px-6 py-1;
   }
 
   .bottombar {
@@ -177,7 +177,7 @@
   width: 40px;
   height: 20px;
   right:1px;
-  top: 25px;
+  top: 20px;
   z-index: 99;
 }
 @media screen and (max-width: 600px) {
@@ -186,7 +186,7 @@
     display: inline-block;
     width: 40px;
     height: 20px;
-    top: 25px;
+    top: 20px;
     right:1em;
     z-index: 99;
   }
