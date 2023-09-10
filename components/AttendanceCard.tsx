@@ -1,0 +1,170 @@
+"use client";
+import React, { useState, useEffect } from "react";
+import { Button } from "../components/ui/button";
+import {
+  clockIn,
+  clockOut,
+  getLatestAttendanceEntry,
+  getLatestAttendanceExit
+} from "@/lib/actions/attendance.actions";
+import { usePathname } from "next/navigation";
+interface Props {
+  currentUserId: string;
+}
+
+const AttendanceCard = ({ currentUserId }: Props) => {
+  const pathname = usePathname();
+  const [time, setTime] = useState(
+    new Date().toLocaleTimeString().toUpperCase()
+  );
+  const [clockedIntime, setclockedIntime] = useState("");
+  const [isClockedIn, setIsClockedIn] = useState(false);
+  const [isClockedOut, setisClockedOut] = useState(false);
+
+  useEffect(() => {
+    const checkClockedInStatus = async () => {
+      try {
+        const latestEntry = await getLatestAttendanceEntry(currentUserId);
+        const latestExit = await getLatestAttendanceExit(currentUserId);
+        console.log(latestExit);
+        if(latestExit&&latestExit?.clockOutTime){
+          setIsClockedIn(false);
+          setisClockedOut(true);
+          setclockedIntime( new Date(latestExit.clockOutTime).toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true,
+          }));
+        }
+        else if (latestEntry && latestEntry.clockInTime) {
+          // User is already clocked in
+
+          setIsClockedIn(true);
+          setclockedIntime(
+            new Date(latestEntry.clockInTime).toLocaleTimeString('en-US', {
+              hour: 'numeric',
+              minute: '2-digit',
+              second: '2-digit',
+              hour12: true,
+            })
+          );
+        }
+      } catch (error) {
+        console.error("Error checking clocked in status:", error);
+      }
+    };
+
+    checkClockedInStatus();
+    const intervalId = setInterval(() => {
+      const currentTime = new Date();
+      const formattedTime = currentTime.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true,
+      });
+      setTime(formattedTime);
+    }, 1000);
+    
+    return () => {
+      clearInterval(intervalId);
+    };
+    
+  }, []);
+
+  const handleClockIn = async () => {
+    try {
+      const currentTime = new Date();
+      const formattedTime = currentTime.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true,
+      });
+  
+      await clockIn(currentUserId, currentTime, pathname);
+      setIsClockedIn(true);
+      setclockedIntime(formattedTime);
+    } catch (error) {
+      console.error("Clock In error:", error);
+    }
+  };
+  
+  const handleClockOut = async () => {
+    try {
+      const currentTime = new Date();
+      const formattedTime = currentTime.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true,
+      });
+  
+      await clockOut(currentUserId, currentTime, pathname);
+      setIsClockedIn(false);
+      setisClockedOut(true);
+      setclockedIntime(formattedTime);
+    } catch (error) {
+      console.error("Clock Out error:", error);
+    }
+  };
+  
+  return (
+    <div className="flex flex-col justify-between items-center h-full rounded-xl bg-dark-2 text-light-1">
+      <div className="flex w-full align-baseline p-5 justify-between">
+        {" "}
+        <h1 className="sm:text-heading4-bold font-semibold sm:text-base text-xs">
+          Time Card
+        </h1>
+        <p>
+          {new Date().toLocaleString("en-US", {
+            month: "short",
+            day: "2-digit",
+            year: "numeric",
+            weekday: "short",
+          })}
+        </p>
+      </div>
+      <div className="flex justify-between w-full p-5 items-center text-light-1">
+        <div className="flex flex-col h-full justify-between">
+          <div className="text-heading4-bold">Current time</div>
+          <div className="text-heading3-bold text-primary-500">{time}</div>
+
+          {isClockedIn && (
+            <div className="text-xs mt-2">
+              Clocked In At{"   "}
+              {clockedIntime}{" "}
+            </div>
+          )}
+          {isClockedOut && !isClockedIn && (
+            <div className="text-xs mt-2">
+              Clocked Out At{"   "}
+              {clockedIntime}{" "}
+            </div>
+          )}
+        </div>
+
+        {isClockedIn ? (
+          <Button
+            size="sm"
+            className="community-card_btn"
+            onClick={handleClockOut}
+          >
+            Clock Out
+          </Button>
+        ) : (
+          <Button
+            size="sm"
+            className="community-card_btn"
+            onClick={handleClockIn}
+          >
+            Work From Home
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default AttendanceCard;
