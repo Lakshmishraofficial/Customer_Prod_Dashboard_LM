@@ -44,7 +44,7 @@ const HolidaysPage: React.FC = () => {
  
         setUpcomingHoliday(upcomingHolidays.length > 0 ? upcomingHolidays[0] : null); 
         setAllHolidays(allOtherHolidays); 
-      } catch (error) { 
+      } catch (error:any) { 
         console.error('Error fetching holidays:', error); 
       } 
     } 

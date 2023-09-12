@@ -53,7 +53,7 @@ function PostThread({ userId }: Props) {
         path: pathname,
       });
       router.push("/");
-    } catch (error) {
+    } catch (error:any) {
       console.error("Validation error:", error);
 
       // Handle validation error by setting an error message in the form

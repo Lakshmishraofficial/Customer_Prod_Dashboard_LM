@@ -49,7 +49,7 @@ function Comment({ threadId, currentUserImg, currentUserId }: Props) {
       );
 
       form.reset();
-    } catch (error) {
+    } catch (error:any) {
       console.error("Validation error:", error);
 
       // Handle validation error by setting an error message in the form

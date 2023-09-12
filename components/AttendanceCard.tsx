@@ -50,7 +50,7 @@ const AttendanceCard = ({ currentUserId }: Props) => {
             })
           );
         }
-      } catch (error) {
+      } catch (error:any) {
         console.error("Error checking clocked in status:", error);
       }
     };
@@ -86,7 +86,7 @@ const AttendanceCard = ({ currentUserId }: Props) => {
       await clockIn(currentUserId, currentTime, pathname);
       setIsClockedIn(true);
       setclockedIntime(formattedTime);
-    } catch (error) {
+    } catch (error:any) {
       console.error("Clock In error:", error);
     }
   };
@@ -105,7 +105,7 @@ const AttendanceCard = ({ currentUserId }: Props) => {
       setIsClockedIn(false);
       setisClockedOut(true);
       setclockedIntime(formattedTime);
-    } catch (error) {
+    } catch (error:any) {
       console.error("Clock Out error:", error);
     }
   };

@@ -42,7 +42,7 @@ export async function createCommunity(
     await user.save();
 
     return createdCommunity;
-  } catch (error) {
+  } catch (error:any) {
     // Handle any errors
     console.error("Error creating community:", error);
     throw error;
@@ -63,7 +63,7 @@ export async function fetchCommunityDetails(id: string) {
     ]);
 
     return communityDetails;
-  } catch (error) {
+  } catch (error:any) {
     // Handle any errors
     console.error("Error fetching community details:", error);
     throw error;
@@ -96,7 +96,7 @@ export async function fetchCommunityPosts(id: string) {
     });
 
     return communityPosts;
-  } catch (error) {
+  } catch (error:any) {
     // Handle any errors
     console.error("Error fetching community posts:", error);
     throw error;
@@ -153,7 +153,7 @@ export async function fetchCommunities({
     const isNext = totalCommunitiesCount > skipAmount + communities.length;
 
     return { communities, isNext };
-  } catch (error) {
+  } catch (error:any) {
     console.error("Error fetching communities:", error);
     throw error;
   }
@@ -194,7 +194,7 @@ export async function addMemberToCommunity(
     await user.save();
 
     return community;
-  } catch (error) {
+  } catch (error:any) {
     // Handle any errors
     console.error("Error adding member to community:", error);
     throw error;
@@ -235,7 +235,7 @@ export async function removeUserFromCommunity(
     );
 
     return { success: true };
-  } catch (error) {
+  } catch (error:any) {
     // Handle any errors
     console.error("Error removing user from community:", error);
     throw error;
@@ -262,7 +262,7 @@ export async function updateCommunityInfo(
     }
 
     return updatedCommunity;
-  } catch (error) {
+  } catch (error:any) {
     // Handle any errors
     console.error("Error updating community information:", error);
     throw error;
@@ -297,7 +297,7 @@ export async function deleteCommunity(communityId: string) {
     await Promise.all(updateUserPromises);
 
     return deletedCommunity;
-  } catch (error) {
+  } catch (error:any) {
     console.error("Error deleting community: ", error);
     throw error;
   }

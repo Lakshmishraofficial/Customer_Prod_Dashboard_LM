@@ -14,7 +14,7 @@ export async function fetchAllHolidays() {
     connectToDB(); 
     const holidays = await HolidayModel.find({}) 
     return holidays; 
-  } catch (error) { 
+  } catch (error:any) { 
     console.error("Error fetching HolidayModel", error); 
     throw error; 
   } 
@@ -38,7 +38,7 @@ export async function getUserDetails(userId:String) {
     }
 
     return user;
-  } catch (error) {
+  } catch (error:any) {
     throw new Error(`Failed to fetch user details: ${error.message}`);
   }
 }
@@ -122,7 +122,7 @@ export async function fetchUserPosts(userId: string) {
       ],
     });
     return threads;
-  } catch (error) {
+  } catch (error:any) {
     console.error("Error fetching user threads:", error);
     throw error;
   }
@@ -181,7 +181,7 @@ export async function fetchUsers({
     const isNext = totalUsersCount > skipAmount + users.length;
 
     return { users, isNext };
-  } catch (error) {
+  } catch (error:any) {
     console.error("Error fetching users:", error);
     throw error;
   }
@@ -210,7 +210,7 @@ export async function getActivity(userId: string) {
     });
 
     return replies;
-  } catch (error) {
+  } catch (error:any) {
     console.error("Error fetching replies: ", error);
     throw error;
   }

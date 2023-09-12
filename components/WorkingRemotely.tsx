@@ -32,7 +32,7 @@ const WorkingRemotely = () => {
           return userImage.find((item) => item.id === uniqueId);
         });
         setRemoteWorkers(uniqueObjects);
-      } catch (error) {
+      } catch (error:any) {
         console.error("Error fetching remote workers for today:", error);
       }
     };
