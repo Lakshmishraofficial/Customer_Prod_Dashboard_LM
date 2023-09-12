@@ -1,9 +1,14 @@
 export const sidebarLinks = [
   {
+    imgURL: "/assets/share.svg",
+    route: "/quick-access",
+    label: "Quick Access",
+  }, {
     imgURL: "/assets/home.svg",
     route: "/",
-    label: "Home",
+    label: "Announcements",
   },
+
   {
     imgURL: "/assets/search.svg",
     route: "/search",

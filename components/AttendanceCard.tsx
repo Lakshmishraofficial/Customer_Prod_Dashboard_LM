@@ -26,7 +26,7 @@ const AttendanceCard = ({ currentUserId }: Props) => {
       try {
         const latestEntry = await getLatestAttendanceEntry(currentUserId);
         const latestExit = await getLatestAttendanceExit(currentUserId);
-        console.log(latestExit);
+        // console.log(latestExit);
         if(latestExit&&latestExit?.clockOutTime){
           setIsClockedIn(false);
           setisClockedOut(true);
@@ -127,9 +127,9 @@ const AttendanceCard = ({ currentUserId }: Props) => {
         </p>
       </div>
       <div className="flex justify-between w-full p-5 items-center text-light-1">
-        <div className="flex flex-col h-full justify-between">
+        <div className="flex flex-col h-full justify-between gap-5 sm:gap-2">
           <div className="text-heading4-bold">Current time</div>
-          <div className="text-heading3-bold text-primary-500">{time}</div>
+          <div className="text-heading4-bold sm:text-heading3-bold text-primary-500">{time}</div>
 
           {isClockedIn && (
             <div className="text-xs mt-2">
@@ -138,8 +138,8 @@ const AttendanceCard = ({ currentUserId }: Props) => {
             </div>
           )}
           {isClockedOut && !isClockedIn && (
-            <div className="text-xs mt-2">
-              Clocked Out At{"   "}
+            <div className="text-small-semibold mt-2">
+              Clocked Out -{">"} {""}
               {clockedIntime}{" "}
             </div>
           )}
@@ -159,7 +159,7 @@ const AttendanceCard = ({ currentUserId }: Props) => {
             className="community-card_btn"
             onClick={handleClockIn}
           >
-            Work From Home
+          <p className="w-max">Work From Home</p>  
           </Button>
         )}
       </div>

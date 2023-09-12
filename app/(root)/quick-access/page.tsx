@@ -2,14 +2,12 @@
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import HolidaysPage from "@/components/holidays";
-import ThreadCard from "@/components/cards/ThreadCard";
-import Pagination from "@/components/shared/Pagination";
 import WorkingRemotely from "@/components/WorkingRemotely";
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 import AttendanceCard from "@/components/AttendanceCard";
 
-async function Home({
+async function page({
   searchParams,
 }: {
   searchParams: { [key: string]: string | undefined };
@@ -32,31 +30,15 @@ async function Home({
           <p className="no-result">No content found</p>
         ) : (
           <>
-            <h3 className="head-text text-xl text-left">Announcements</h3>
-            {result.posts.map((post) => (
-              <ThreadCard
-                key={post._id}
-                id={post._id}
-                currentUserId={user.id}
-                parentId={post.parentId}
-                content={post.text}
-                author={post.author}
-                community={post.community}
-                createdAt={post.createdAt}
-                comments={post.children}
-              />
-            ))}
+            <h3 className="head-text text-xl text-left">Quick Access</h3>
+            <HolidaysPage />
+            <WorkingRemotely />
+            <AttendanceCard currentUserId={user.id} />
           </>
         )}
       </section>
-
-      <Pagination
-        path="/"
-        pageNumber={searchParams?.page ? +searchParams.page : 1}
-        isNext={result.isNext}
-      />
     </>
   );
 }
 
-export default Home;
+export default page;

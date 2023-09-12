@@ -19,6 +19,30 @@ export async function fetchAllHolidays() {
     throw error; 
   } 
 }
+export async function getUserDetails(userId:String) {
+  try {
+    connectToDB();
+
+    // Find the user by userId and select only the fields you want to return
+    const user = await User.findOne({ id: userId }, {
+      _id: 0, // Exclude the MongoDB _id field
+      id: 1,   // Include the 'id' field
+      username: 1, // Include the 'username' field
+      name: 1, // Include the 'name' field
+      image: 1, // Include the 'image' field
+      bio: 1, // Include the 'bio' field
+    });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    return user;
+  } catch (error) {
+    throw new Error(`Failed to fetch user details: ${error.message}`);
+  }
+}
+
 export async function fetchUser(userId: string) {
   try {
     connectToDB();

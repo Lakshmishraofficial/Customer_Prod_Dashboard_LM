@@ -60,7 +60,7 @@ const HolidaysPage: React.FC = () => {
     <div className="flex flex-col justify-center items-center h-1/2 rounded-xl bg-dark-2/[0.9] text-light-1"> 
       <div className="flex items-center w-full justify-between p-5"> 
         <h1 className="sm:text-heading4-bold font-semibold sm:text-base text-xs">Upcoming Holiday</h1> 
-        <button className="text-indigo-400 underline" onClick={handleToggleShowAllHolidays}> 
+        <button className="text-indigo-400 underline text-small-semibold" onClick={handleToggleShowAllHolidays}> 
           View All Holidays 
         </button> 
       </div> 
@@ -68,7 +68,7 @@ const HolidaysPage: React.FC = () => {
         {upcomingHoliday && !showAllHolidays ? ( 
           <HolidayCard holiday={upcomingHoliday} /> 
         ) : ( 
-          <div className='flex flex-col justify-center text-center'> 
+          <div className='flex flex-col justify-center text-center text-small'> 
             <p>No upcoming holidays this month.</p> 
             {showAllHolidays && ( 
               <div className="mt-10"> 

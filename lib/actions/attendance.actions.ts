@@ -3,6 +3,44 @@ import AttendanceEntryModel from "../models/clockin.model";
 import AttendanceExitModel from "../models/clockout.model";
 import { connectToDB } from "../mongoose";
 import { revalidatePath } from "next/cache";
+import { getUserDetails } from "./user.actions";
+
+export async function fetchAttendanceEntriesForTodayWithUserDetails() {
+  try {
+    connectToDB();
+    const currentDate = new Date();
+    const startOfDay = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      currentDate.getDate()
+    );
+    const endOfDay = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      currentDate.getDate(),
+      23,
+      59,
+      59
+    );
+
+    const entries = await AttendanceEntryModel.find({
+      clockInTime: { $gte: startOfDay, $lte: endOfDay },
+    });
+
+    // Fetch user details for each attendance entry
+    const entriesWithUserDetails = await Promise.all(
+      entries.map(async (entry) => {
+        const user = await getUserDetails(entry.userId);
+        return { ...entry.toObject(), user };
+      })
+    );
+
+    return entriesWithUserDetails;
+  } catch (error: any) {
+    console.error("Fetch Attendance Entries for Today failed:", error);
+    throw new Error(`Fetch Attendance Entries for Today failed: ${error.message}`);
+  }
+}
 
 export async function clockIn(userId: string, clockInTime: Date, path: string) {
   try {
