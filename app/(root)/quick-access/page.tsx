@@ -32,7 +32,7 @@ async function page({
           <>
             <h3 className="head-text text-xl text-left">Quick Access</h3>
             <HolidaysPage />
-            <WorkingRemotely />
+            <WorkingRemotely currentUserId={user.id}  />
             <AttendanceCard currentUserId={user.id} />
           </>
         )}

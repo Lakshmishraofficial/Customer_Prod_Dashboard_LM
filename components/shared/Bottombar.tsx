@@ -3,14 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import { useTheme } from "../../app/themes/themeContext";
 import { sidebarLinks } from "@/constants";
 
 function Bottombar() {
   const pathname = usePathname();
-
+  const { isDarkMode } = useTheme();
   return (
-    <section className='bottombar'>
+    <section className={isDarkMode?'bottombar':'bottombarlight'}>
       <div className='bottombar_container'>
         {sidebarLinks.map((link) => {
           const isActive =
@@ -25,6 +25,7 @@ function Bottombar() {
             >
               <Image
                 src={link.imgURL}
+                style={isDarkMode ? {} : { filter: "invert(1)" }}
                 alt={link.label}
                 width={16}
                 height={16}

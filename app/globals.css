@@ -67,13 +67,15 @@
     @apply fixed top-0 z-30 flex w-full items-center justify-between bg-[#19192b] px-6 py-1 bg-no-repeat bg-[url('../public/assets/topbarpicture.png')];
   }
   .topbarlight {
-    @apply fixed top-0 z-30 flex w-full items-center justify-between bg-light-2 text-dark-2 px-6 py-1;
+    @apply fixed top-0 z-30 flex w-full items-center justify-between bg-light-2 text-dark-2 px-6 py-1 drop-shadow-lg;
   }
 
   .bottombar {
     @apply fixed bottom-0 z-10 w-full rounded-t-3xl bg-glassmorphism p-4 backdrop-blur-lg xs:px-7 md:hidden;
   }
-
+.bottombarlight{
+  @apply fixed bottom-0 z-10 w-full rounded-t-3xl bg-light-1/5 p-4 backdrop-blur-lg xs:px-7 md:hidden;
+}
   .bottombar_container {
     @apply flex items-center justify-between gap-3 xs:gap-5;
   }
@@ -257,3 +259,4 @@
 .slider.round:before {
   border-radius: 50%;
 }
+

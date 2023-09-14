@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'; 
 import HolidayCard from './cards/HolidayCard'; 
 import { fetchAllHolidays } from "@/lib/actions/user.actions"; 
+import { useTheme } from "../app/themes/themeContext";
  
 interface Holiday { 
   name: string; 
@@ -9,6 +10,7 @@ interface Holiday {
 } 
  
 const HolidaysPage: React.FC = () => { 
+  const { isDarkMode } = useTheme();
   const [upcomingHoliday, setUpcomingHoliday] = useState<Holiday | null>(null); 
   const [showAllHolidays, setShowAllHolidays] = useState(false); 
   const [allHolidays, setAllHolidays] = useState<Holiday[]>([]); 
@@ -57,7 +59,7 @@ const HolidaysPage: React.FC = () => {
   }; 
  
   return ( 
-    <div className="flex flex-col justify-center items-center h-1/2 rounded-xl bg-dark-2/[0.9] text-light-1"> 
+    <div className={isDarkMode?"flex flex-col justify-center items-center h-1/2 rounded-xl bg-dark-2/[0.9] text-light-1":"flex flex-col justify-center items-center h-1/2 rounded-xl bg-light-2/[0.9] text-dark-1"}> 
       <div className="flex items-center w-full justify-between p-5"> 
         <h1 className="sm:text-heading4-bold font-semibold sm:text-base text-xs">Upcoming Holiday</h1> 
         <button className="text-indigo-400 underline text-small-semibold" onClick={handleToggleShowAllHolidays}> 
