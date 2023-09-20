@@ -34,7 +34,7 @@ const LeftSidebar = () => {
             <Link
               href={link.route}
               key={link.label}
-              className={`leftsidebar_link ${isActive && "bg-primary-500 "}`}
+              className={`leftsidebar_link ${isActive && "bg-primary-500 "} hover:bg-primary-500/25 cursor-pointer`}
             >
               <Image
                 style={isDarkMode ? {transition:"0.4s ease-in"} : { filter: "invert(1)" }}
