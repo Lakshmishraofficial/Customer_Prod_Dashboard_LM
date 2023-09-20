@@ -10,7 +10,7 @@ function Topbar() {
   return (
     <nav className={isDarkMode ? "topbardark transition duration-400 ease-in" : "topbarlight transition duration-400 ease-in"}>
       <Link href="/" className="flex items-center gap-4">
-        <Image src="/logo.svg" alt="logo" width={28} height={28} />
+        <Image src="/mainLogo.svg" alt="logo" width={40} height={40} />
         <p
           className={
             isDarkMode
