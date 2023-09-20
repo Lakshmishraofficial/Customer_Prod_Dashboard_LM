@@ -32,14 +32,14 @@ const AttendanceCard = ({ currentUserId }: Props) => {
         // console.log(latestExit);
         if (
           latestExit &&
-          latestExit?.clockOutTime &&
-          Date.parse(latestExit?.clockOutTime) >
-            Date.parse(latestEntry?.clockInTime)
+          Date.parse(latestExit) >
+            Date.parse(latestEntry) || latestEntry==null
+            && latestExit!= null
         ) {
           setIsClockedIn(false);
           setisClockedOut(true);
           setclockedIntime(
-            new Date(latestExit.clockOutTime).toLocaleTimeString("en-US", {
+            new Date(latestExit).toLocaleTimeString("en-US", {
               hour: "numeric",
               minute: "2-digit",
               second: "2-digit",
@@ -47,16 +47,16 @@ const AttendanceCard = ({ currentUserId }: Props) => {
             })
           );
         } else if (
-          latestEntry &&
-          latestEntry.clockInTime &&
-          Date.parse(latestEntry?.clockInTime) >
-            Date.parse(latestExit?.clockOutTime)
+          latestEntry&&
+          Date.parse(latestEntry) >
+            Date.parse(latestExit) || latestExit==null
+            && latestEntry!=null
           ) {
           // User is already clocked in
 
           setIsClockedIn(true);
           setclockedIntime(
-            new Date(latestEntry.clockInTime).toLocaleTimeString("en-US", {
+            new Date(latestEntry).toLocaleTimeString("en-US", {
               hour: "numeric",
               minute: "2-digit",
               second: "2-digit",
@@ -150,13 +150,13 @@ const AttendanceCard = ({ currentUserId }: Props) => {
 
           {isClockedIn && (
             <div className="text-small-semibold mt-2">
-              Clocked In -{">"} {""}
+               Clocked In -{">"} {""}
               {clockedIntime}{" "}
             </div>
           )}
           {isClockedOut && !isClockedIn && (
             <div className="text-small-semibold mt-2">
-              Clocked Out -{">"} {""}
+               Clocked Out -{">"} {""}
               {clockedIntime}{" "}
             </div>
           )}
@@ -165,18 +165,18 @@ const AttendanceCard = ({ currentUserId }: Props) => {
         {isClockedIn ? (
           <Button
             size="sm"
-            className="community-card_btn"
+            className="community-card_btn cursor-pointer p-3 sm:p-0"
             onClick={handleClockOut}
           >
-            Clock Out
+           <p className="w-max p-2 sm:p-0">Clock Out 🕗</p>
           </Button>
         ) : (
           <Button
             size="sm"
-            className="community-card_btn"
+            className="community-card_btn cursor-pointer"
             onClick={handleClockIn}
           >
-            <p className="w-max">Work From Home</p>
+            <p className="w-max p-2 sm:p-0">Clock In 🕗</p>
           </Button>
         )}
       </div>

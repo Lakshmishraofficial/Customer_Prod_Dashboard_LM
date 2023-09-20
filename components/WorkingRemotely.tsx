@@ -69,7 +69,7 @@ const WorkingRemotely = ({ currentUserId }: Props) => {
     // Loading state or you can display an error message here
     return (
       <div className={isDarkMode?"sm:text-heading4-bold font-semibold sm:text-base text-xs text-light-1":"sm:text-heading4-bold font-semibold sm:text-base text-xs text-dark-1"}>
-        Fetching Remote Workers...
+        Fetching...
       </div>
     );
   }
@@ -78,7 +78,7 @@ const WorkingRemotely = ({ currentUserId }: Props) => {
     <div className={isDarkMode?"flex flex-col justify-between items-center h-full rounded-xl bg-dark-2 text-light-1":"flex flex-col justify-between items-center h-full rounded-xl bg-light-2 text-dark-1"}>
       <div className="flex items-center w-full justify-between p-5">
         <h1 className="sm:text-heading4-bold font-semibold sm:text-base text-xs">
-          Working Remotely
+         Clocked In Users Today
         </h1>
       </div>
       <div className={isDarkMode?"flex justify-between w-full p-5 items-center text-light-1":"flex justify-between w-full p-5 items-center text-dark-1"}>

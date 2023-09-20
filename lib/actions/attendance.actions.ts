@@ -61,12 +61,16 @@ export async function getLatestAttendanceEntry(userId: string) {
   try {
     connectToDB();
 
-    // Find the latest attendance entry for the given userId
-    const latestEntry = await AttendanceEntryModel.findOne({ userId }).sort({
-      clockInTime: -1,
-    });
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Set time to the beginning of the day
 
-    return latestEntry;
+    // Find the latest attendance entry for the given userId for today
+    const latestEntry = await AttendanceEntryModel.findOne({
+      userId,
+      clockInTime: { $gte: today }, // Filter for today's entries
+    }).sort({ clockInTime: -1 });
+
+    return latestEntry ? latestEntry.clockInTime : null;
   } catch (error: any) {
     console.error("Get Latest Attendance Entry failed:", error);
     throw new Error(`Get Latest Attendance Entry failed: ${error.message}`);
@@ -77,17 +81,22 @@ export async function getLatestAttendanceExit(userId: string) {
   try {
     connectToDB();
 
-    // Find the latest attendance entry for the given userId
-    const latestEntry = await AttendanceExitModel.findOne({ userId }).sort({
-      clockOutTime: -1,
-    });
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Set time to the beginning of the day
 
-    return latestEntry;
+    // Find the latest attendance exit for the given userId for today
+    const latestExit = await AttendanceExitModel.findOne({
+      userId,
+      clockOutTime: { $gte: today }, // Filter for today's exits
+    }).sort({ clockOutTime: -1 });
+
+    return latestExit ? latestExit.clockOutTime : null;
   } catch (error: any) {
-    console.error("Get Latest Attendance Entry failed:", error);
-    throw new Error(`Get Latest Attendance Entry failed: ${error.message}`);
+    console.error("Get Latest Attendance Exit failed:", error);
+    throw new Error(`Get Latest Attendance Exit failed: ${error.message}`);
   }
 }
+
 
 export async function clockOut(
   userId: string,
