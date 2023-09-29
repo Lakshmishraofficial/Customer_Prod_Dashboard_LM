@@ -5,9 +5,9 @@ import { connectToDB } from "../mongoose";
 import { revalidatePath } from "next/cache";
 import { getUserDetails } from "./user.actions";
 
+connectToDB();
 export async function fetchAttendanceEntriesForTodayWithUserDetails() {
   try {
-    connectToDB();
     const currentDate = new Date();
     const startOfDay = new Date(
       currentDate.getFullYear(),
@@ -44,7 +44,7 @@ export async function fetchAttendanceEntriesForTodayWithUserDetails() {
 
 export async function clockIn(userId: string, clockInTime: Date, path: string) {
   try {
-    connectToDB();
+ 
     await AttendanceEntryModel.create({
       userId,
       clockInTime,
@@ -59,7 +59,7 @@ export async function clockIn(userId: string, clockInTime: Date, path: string) {
 
 export async function getLatestAttendanceEntry(userId: string) {
   try {
-    connectToDB();
+
 
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set time to the beginning of the day
@@ -79,7 +79,7 @@ export async function getLatestAttendanceEntry(userId: string) {
 
 export async function getLatestAttendanceExit(userId: string) {
   try {
-    connectToDB();
+
 
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set time to the beginning of the day
@@ -104,7 +104,7 @@ export async function clockOut(
   path: string
 ) {
   try {
-    connectToDB();
+
     await AttendanceExitModel.create({
       userId,
       clockOutTime,

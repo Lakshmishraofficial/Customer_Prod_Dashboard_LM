@@ -156,7 +156,7 @@ const AttendanceCard = ({ currentUserId }: Props) => {
           )}
           {isClockedOut && !isClockedIn && (
             <div className="text-small-semibold mt-2">
-               Clocked Out -{">"} {""}
+               Last Clocked Out -{">"} {""}
               {clockedIntime}{" "}
             </div>
           )}
